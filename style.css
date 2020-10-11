@@ -1,0 +1,53 @@
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    size: 16px;
+    color: #04151F;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    size: 12px;
+    background-color: #EFD6AC;
+    color: #04151F;
+}
+
+#header-div {
+    margin: auto;
+    text-align: center;
+}
+
+#controls {
+    margin: auto;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+div .inactive {
+    background-color: rgba(4, 21, 31, 0.4);
+    margin: 1px 1px 1px 1px;
+}
+
+div .hovered {
+    margin: 1px 1px 1px 1px;
+}
+
+label {
+    margin-right: 25px;
+}
+
+#clear-button {
+    margin-bottom: 15px;
+    padding: 10px 25px 10px 25px;
+    background-color: #C44900;
+    color: #EFD6AC;
+    border: 0px solid black;
+    font-weight: bold;
+    font-size: 16px;
+}

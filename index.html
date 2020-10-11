@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<head>
+    <link rel='stylesheet' href='style.css'/>
+</head>
+<body>
+    <div id='header-div'>
+        <h1>Etch-A-Sketch</h1>
+    </div>
+    <div id='controls'>
+        <button value='clear' id='clear-button'>Clear</button>
+        <form>
+            <label for='rainbow-selector'>
+                Rainbow?
+                <input id='rainbow-selector' type="checkbox">
+            </label>
+            <label for='color-picker'>
+                Color
+                <input id='color-picker' type='color'>
+            </label>
+        </form>
+    </div>
+    <div id='grid-container'>
+    </div>
+</body>
+
+<script>
+
+    let backgroundColor = '#183A37';
+    let isRainbowColor = false;
+    const gridContainerWidth = 560;
+
+    generateGrid(16);
+
+    const rainbowSelector = document.querySelector('input[id="rainbow-selector"]');
+    rainbowSelector.addEventListener('change', function() {
+        isRainbowColor = this.checked;
+    });
+
+    const colorPicker = document.querySelector('input[id="color-picker"]');
+    colorPicker.addEventListener('change', function() {
+        backgroundColor = this.value;
+    })
+
+    const clearButton = document.querySelector('button[value="clear"]');
+    clearButton.addEventListener('click', function(e){
+
+        let size = parseInt(prompt('Select size (default: 16, max, 80)'));
+
+        if (!size || size < 1) {
+            size = 16
+        }
+        else if (size > 80) {
+            size = 80;
+        };
+
+
+        generateGrid(size);
+
+    });
+
+    function generateGrid(size) {
+
+        const gridContainer = document.getElementById('grid-container');
+        gridContainer.innerHTML = ''
+        
+        if (!size) {
+            size = 16;
+        }
+
+        gridContainer.style.width = `${gridContainerWidth}px`;
+        gridContainer.style.height = `${gridContainerWidth}px`;
+
+        const pixelSize = gridContainerWidth / size - 2; // - 2 because of the margin on each side
+
+        for (let i = 0; i < size; i++) {
+            for (let i = 0; i < size; i++) {
+
+                let newDiv = document.createElement('div');
+                newDiv.id = 'pixel'
+                newDiv.classList.add('inactive')
+                newDiv.style.width = pixelSize + 'px';
+                newDiv.style.height = pixelSize + 'px';
+                gridContainer.appendChild(newDiv);
+            }
+        }
+
+        const pixelDivs = document.querySelectorAll('#pixel');
+
+        pixelDivs.forEach((pixel) => {
+            pixel.addEventListener('mouseover', function(e) {
+                
+                //console.log(e.target);
+
+                e.target.classList.remove('inactive');
+                e.target.classList.add('hovered');
+
+                if (isRainbowColor) {
+                    let rainbowColors = [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)];
+                    let rainbowColor = `rgb(${rainbowColors.join(',')})`;
+                    e.target.style.backgroundColor = rainbowColor;
+
+                }
+                else {
+                    e.target.style.backgroundColor = backgroundColor;
+                }
+                
+            });
+        });
+    }
+</script>
